@@ -29,6 +29,7 @@ export function createProject(project) {
         person_name: project.person_name,
         project_name: project.project_name,
         description: project.description,
+        // upLoadLink: project.upLoadLink,
         date: dateCreateProject
     };
 

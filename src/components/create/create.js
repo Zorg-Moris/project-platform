@@ -11,15 +11,16 @@ class Create extends Component {
             person_name: this.refs.personNameInput.value,
             project_name: this.refs.projectNameInput.value,
             description: this.refs.descriptionInput.value,
+            upLoadLink: this.refs.upLoadInput.files[0].name
         };
 
         projectApi.createProject(projectInfo);
 
-        console.log("start function onSubmit");
+        console.log("start function onSubmit -", projectInfo.upLoadLink);
 
         this.refs.personNameInput.value = "";
         this.refs.projectNameInput.value = "";
-        this.refs.descriptionInput.value = "";
+        this.refs.descriptionInput.value = "";  
     }
 
     render() {
@@ -44,6 +45,12 @@ class Create extends Component {
                         <textarea type="text"
                             className="form-control"
                             ref="descriptionInput" />
+
+                       <div className="form-group">
+                           <input className="form-control"  
+                                  ref="upLoadInput" type="file" />
+                         </div>
+
                     </div>
                     <div className="form-group">
                         <input type="submit"
