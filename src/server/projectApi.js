@@ -8,8 +8,6 @@ import {
 } from '../actions/projectActions';
 
 
-
-
 export function getAllProjects() {
     Axios.get('http://localhost:4000/project').then(response => {
             store.dispatch(getProjects(response.data));
@@ -29,7 +27,6 @@ export function createProject(project) {
         person_name: project.person_name,
         project_name: project.project_name,
         description: project.description,
-        // upLoadLink: project.upLoadLink,
         date: dateCreateProject
     };
 

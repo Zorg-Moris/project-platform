@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import * as projectApi from '../../server/projectApi';
 import { connect } from 'react-redux';
+import './createStyle.css';
+
 
 class Create extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            projectNameValue: false,
+            descriptionValue: false
+        }
+    }
+
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -10,8 +20,7 @@ class Create extends Component {
         const projectInfo = {
             person_name: this.refs.personNameInput.value,
             project_name: this.refs.projectNameInput.value,
-            description: this.refs.descriptionInput.value,
-            upLoadLink: this.refs.upLoadInput.files[0].name
+            description: this.refs.descriptionInput.value
         };
 
         projectApi.createProject(projectInfo);
@@ -20,7 +29,7 @@ class Create extends Component {
 
         this.refs.personNameInput.value = "";
         this.refs.projectNameInput.value = "";
-        this.refs.descriptionInput.value = "";  
+        this.refs.descriptionInput.value = "";
     }
 
     render() {
@@ -38,26 +47,21 @@ class Create extends Component {
                         <label>Project Name: </label>
                         <input type="text"
                             ref="projectNameInput"
-                            className="form-control" />
+                            className="form-control"
+                        />
                     </div>
                     <div className="form-group">
                         <label>Project Description: </label>
                         <textarea type="text"
                             className="form-control"
-                            ref="descriptionInput" />
-
-                       <div className="form-group">
-                           <input className="form-control"  
-                                  ref="upLoadInput" type="file" />
-                         </div>
-
+                            ref="descriptionInput"
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="submit"
+                        <button type="submit"
                             value="Create"
-                            className="btn btn-primary" />
+                            className="btn btn-primary"> Create Project</button>
                     </div>
-
                 </form>
             </div>
         )
