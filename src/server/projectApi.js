@@ -11,10 +11,10 @@ import {
 
 export function getAllProjects() {
     Axios.get('http://localhost:4000/project').then(response => {
-        store.dispatch(getProjects(response.data));
-        console.log("getAllProjects response.data Api store - ", response.data);
-        return response;
-    })
+            store.dispatch(getProjects(response.data));
+            console.log("getAllProjects response.data Api store - ", response.data);
+            return response;
+        })
         .catch(function (error) {
             console.log(error);
         });
@@ -30,21 +30,21 @@ export async function createProject(project) {
         person_name: project.person_name,
         project_name: project.project_name,
         description: project.description,
+        date: dateCreateProject,
         like: 0,
         dizlike: 0,
-        date: dateCreateProject
     };
 
     Axios.post('http://localhost:4000/project/add', projectInfo)
         .then(response => {
             console.log("createProject response.data Api store - ", response.data);
             Axios.get('http://localhost:4000/project').then(response => {
-                store.dispatch(createProjectAction(response.data));
-                console.log("createProjectAction response.data Api store - ", response.data);
-                let storage = store.getState();
-                console.log("storage - ", storage);
-                return response;
-            })
+                    store.dispatch(createProjectAction(response.data));
+                    console.log("createProjectAction response.data Api store - ", response.data);
+                    let storage = store.getState();
+                    console.log("storage - ", storage);
+                    return response;
+                })
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -81,15 +81,9 @@ export async function getProjectDataDb(id) {
 
 export function updateInfoProject(project, id) {
     console.log("updateInfoProject ApiStore - ", project);
-    const projectInfo = {
-        person_name: project.person_name,
-        project_name: project.project_name,
-        description: project.description
-    };
-
-    Axios.post('http://localhost:4000/project/update/' + id, projectInfo)
+    Axios.post('http://localhost:4000/project/update/' + id, project)
         .then(res => console.log("res.data", res.data),
-            store.dispatch(editProject(id, projectInfo)));
+            store.dispatch(editProject(id, project)));
 }
 
 //delete
@@ -100,4 +94,9 @@ export function deleteProgectDb(id) {
         .then(console.log("Deleted"),
             store.dispatch(deleteProject(id)))
         .catch(error => console.log(error));
+}
+
+export function setInfoLike(id, setInfoLike) {
+    console.log("ID- ", id);
+    console.log("setInfoLike - ", setInfoLike);
 }

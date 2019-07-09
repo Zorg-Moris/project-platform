@@ -31,18 +31,11 @@ export function deleteProject(id) {
     }
 }
 
-export function setLike(id,project) {
+export function setLike(id, infoLike, project) {
     return {
-        type: types.SET_LIKE,
+        type: types.SET_LIKES,
         id,
-        project
-    }
-}
-
-export function setDizLike(id,project) {
-    return {
-        type: types.SET_DIZLIKE,
-        id,
+        infoLike,
         project
     }
 }

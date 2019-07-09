@@ -12,15 +12,15 @@ let Project = new Schema({
   description: {
     type: String
   },
+  date: {
+    type: String
+  },
   like: {
     type: Number
   },
   dizlike: {
     type: Number
   },
-  date: {
-    type: String
-  }
 }, {
   collection: 'projects'
 });

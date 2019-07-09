@@ -5,25 +5,21 @@ import './projectList.css';
 
 class projectList extends Component {
 
-
     onDelete = (id) => {
         projectApi.deleteProgectDb(id);
     }
 
-    onSetInfoLike=(e,id)=> {
-       
-
-       let infolike  = e.target.dataset.infolike;
-       console.log(infolike);
-       
-//        console.log("function like ID- ", id);
+    onSetInfoLike=(id, e)=> {
+      
+        let infolike  = e.target.dataset.infolike;
+        console.log(infolike);
+        console.log("function like ID- ", id);
+        
+        projectApi.setInfoLike(id,infolike);
 
     }
 
- 
-
     render() {
-
         return (
             <React.Fragment>
                 {this.props.projects.map(project => {
@@ -42,10 +38,10 @@ class projectList extends Component {
                                 {project.date}
                             </td>
                             <td>
-                                <label data-infolike="like" onClick={this.onSetInfoLike}> {project.like}</label>
+                                <label data-infolike="like" onClick={(e)=>this.onSetInfoLike(project._id,e)}> {project.like}</label>
                             </td>
                             <td>
-                                <label data-infolike="dizlike" onClick={this.onSetInfoLike}>{project.dizlike}</label>
+                                <label data-infolike="dizlike" onClick={(e)=>this.onSetInfoLike(project._id,e)}>{project.dizlike}</label>
                             </td>
                             <td>
                                 <Link to={"/edit/" + project._id} className="btn btn-primary">Edit</Link>
