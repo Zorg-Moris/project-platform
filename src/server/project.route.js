@@ -56,14 +56,13 @@ projectRoutes.route('/update/:id').post(function (req, res) {
   });
 });
 
-// Defined delete | remove | destroy route
+// Defined delete 
 projectRoutes.route('/delete/:id').get(function (req, res) {
   Project.findOneAndDelete({ _id: req.params.id }, function (err, project) {
     if (err) res.json(err);
     else res.json('Successfully removed');
   });
 });
-
 
 
 module.exports = projectRoutes;

@@ -8,25 +8,30 @@ import {
 } from '../actions/projectActions';
 
 
+
 export function getAllProjects() {
     Axios.get('http://localhost:4000/project').then(response => {
-            store.dispatch(getProjects(response.data));
-            console.log("getAllProjects response.data Api store - ", response.data);
-            return response;
-        })
+        store.dispatch(getProjects(response.data));
+        console.log("getAllProjects response.data Api store - ", response.data);
+        return response;
+    })
         .catch(function (error) {
             console.log(error);
         });
 }
 
 
-export function createProject(project) {
+export async function createProject(project) {
     console.log("project ApiStore - ", project);
-    let dateCreateProject = dateCtereteProject();
+
+    let dateCreateProject = await dateCtereteProject();
+
     const projectInfo = {
         person_name: project.person_name,
         project_name: project.project_name,
         description: project.description,
+        like: 0,
+        dizlike: 0,
         date: dateCreateProject
     };
 
@@ -34,12 +39,12 @@ export function createProject(project) {
         .then(response => {
             console.log("createProject response.data Api store - ", response.data);
             Axios.get('http://localhost:4000/project').then(response => {
-                    store.dispatch(createProjectAction(response.data));
-                    console.log("createProjectAction response.data Api store - ", response.data);
-                    let storage = store.getState();
-                    console.log("storage - ", storage);
-                    return response;
-                })
+                store.dispatch(createProjectAction(response.data));
+                console.log("createProjectAction response.data Api store - ", response.data);
+                let storage = store.getState();
+                console.log("storage - ", storage);
+                return response;
+            })
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -49,15 +54,16 @@ export function createProject(project) {
         });
 }
 
-function dateCtereteProject() {
+async function dateCtereteProject() {
     let dateCreateProject = new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
         year: 'numeric'
-    }).split(' ').join('-');
+    }).split(' ').join('/');
 
     return dateCreateProject;
 }
+
 
 //edit
 

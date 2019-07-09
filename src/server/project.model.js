@@ -12,11 +12,17 @@ let Project = new Schema({
   description: {
     type: String
   },
+  like: {
+    type: Number
+  },
+  dizlike: {
+    type: Number
+  },
   date: {
     type: String
   }
 }, {
-    collection: 'projects'
-  });
+  collection: 'projects'
+});
 
 module.exports = mongoose.model('Project', Project);

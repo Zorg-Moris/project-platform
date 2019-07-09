@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const config = require('./Db.js');
 const projectRoute = require('./project.route');
 
+
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => { console.log('Database is connected') },
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/project', projectRoute);
+
 
 app.listen(PORT, function () {
   console.log('Server is running on Port:', PORT);

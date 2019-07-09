@@ -15,11 +15,14 @@ class Edit extends Component {
         let projectInfo = await projectApi.getProjectDataDb(this.props.match.params.id);
         console.log(projectInfo);
 
-        let { person_name, project_name, description } = projectInfo;
+        let { person_name, project_name, like, dizlike, description } = projectInfo;
 
         this.refs.personNameInput.value = person_name;
         this.refs.projectNameInput.value = project_name;
         this.refs.descriptionInput.value = description;
+      // check when the likes will be ready
+        this.like = like;
+        this.dizlike = dizlike;
     }
 
     onSubmit = (e) => {
@@ -27,7 +30,10 @@ class Edit extends Component {
         const projectInfo = {
             person_name: this.refs.personNameInput.value,
             project_name: this.refs.projectNameInput.value,
-            description: this.refs.descriptionInput.value
+            description: this.refs.descriptionInput.value,
+           // check when the likes will be ready
+            like: this.like,
+            dizlike: this.dizlike,
         };
 
         projectApi.updateInfoProject(projectInfo, this.props.match.params.id);

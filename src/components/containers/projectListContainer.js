@@ -15,15 +15,14 @@ class ProjectListContainer extends Component {
         console.log("showTableRow");
         return this.props.projects.map(function (project, i) {
             return <ProjectList project={project} key={i} />
-        }
-        );
+        });
     }
 
     render() {
 
         if (this.props.projects.length) {
 
-          
+
             return (
                 <div>
                     <h3 align="center">Projects List</h3>
@@ -34,6 +33,7 @@ class ProjectListContainer extends Component {
                                 <th>Project</th>
                                 <th>Description</th>
                                 <th>Date</th>
+                                <th colSpan="2">Likes</th>
                                 <th colSpan="2">Action</th>
                             </tr>
                         </thead>
@@ -44,7 +44,7 @@ class ProjectListContainer extends Component {
                 </div>
             );
         } else {
-             return <div> NO project </div>      
+            return <div> NO project </div>
         }
     }
 }

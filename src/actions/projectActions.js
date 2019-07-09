@@ -30,3 +30,19 @@ export function deleteProject(id) {
         id
     }
 }
+
+export function setLike(id,project) {
+    return {
+        type: types.SET_LIKE,
+        id,
+        project
+    }
+}
+
+export function setDizLike(id,project) {
+    return {
+        type: types.SET_DIZLIKE,
+        id,
+        project
+    }
+}

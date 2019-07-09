@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import * as projectApi from '../../server/projectApi';
 import { connect } from 'react-redux';
-import './createStyle.css';
-
 
 class Create extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            projectNameValue: false,
-            descriptionValue: false
-        }
-    }
-
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -20,12 +10,12 @@ class Create extends Component {
         const projectInfo = {
             person_name: this.refs.personNameInput.value,
             project_name: this.refs.projectNameInput.value,
-            description: this.refs.descriptionInput.value
+            description: this.refs.descriptionInput.value,
         };
 
         projectApi.createProject(projectInfo);
 
-        console.log("start function onSubmit -", projectInfo.upLoadLink);
+        console.log("start function onSubmit -", projectInfo);
 
         this.refs.personNameInput.value = "";
         this.refs.projectNameInput.value = "";
@@ -47,21 +37,20 @@ class Create extends Component {
                         <label>Project Name: </label>
                         <input type="text"
                             ref="projectNameInput"
-                            className="form-control"
-                        />
+                            className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Project Description: </label>
                         <textarea type="text"
                             className="form-control"
-                            ref="descriptionInput"
-                        />
+                            ref="descriptionInput" />
                     </div>
                     <div className="form-group">
-                        <button type="submit"
+                        <input type="submit"
                             value="Create"
-                            className="btn btn-primary"> Create Project</button>
+                            className="btn btn-primary" />
                     </div>
+
                 </form>
             </div>
         )
