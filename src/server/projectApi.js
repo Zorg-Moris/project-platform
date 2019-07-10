@@ -4,7 +4,8 @@ import {
     getProjects,
     createProjectAction,
     editProject,
-    deleteProject
+    deleteProject,
+    setLike
 } from '../actions/projectActions';
 
 
@@ -96,7 +97,9 @@ export function deleteProgectDb(id) {
         .catch(error => console.log(error));
 }
 
-export function setInfoLike(id, setInfoLike) {
+export function setInfoLike(id, infoLike) {
     console.log("ID- ", id);
-    console.log("setInfoLike - ", setInfoLike);
+    console.log("setInfoLike - ", infoLike);
+
+    store.dispatch(setLike(id,infoLike));
 }

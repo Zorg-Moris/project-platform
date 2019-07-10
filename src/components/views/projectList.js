@@ -15,6 +15,7 @@ class projectList extends Component {
         console.log(infolike);
         console.log("function like ID- ", id);
         
+        
         projectApi.setInfoLike(id,infolike);
 
     }
