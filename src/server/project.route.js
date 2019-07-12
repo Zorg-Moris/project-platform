@@ -45,6 +45,8 @@ projectRoutes.route('/update/:id').post(function (req, res) {
       project.person_name = req.body.person_name;
       project.project_name = req.body.project_name;
       project.description = req.body.description;
+      project.like = req.body.like;
+      project.dizlike = req.body.dizlike;
 
       project.save().then(project => {
         res.json('Update complete');
@@ -59,10 +61,38 @@ projectRoutes.route('/update/:id').post(function (req, res) {
 // Defined delete 
 projectRoutes.route('/delete/:id').get(function (req, res) {
   Project.findOneAndDelete({ _id: req.params.id }, function (err, project) {
-    if (err) res.json(err);
-    else res.json('Successfully removed');
+    if (err) {
+      res.json(err);
+    }
+    else {
+      res.json('Successfully removed');
+    }
   });
 });
+
+//update info like/dizlike
+
+projectRoutes.route('/updatelike/:id').post(function (req, res) {
+  Project.updateOne({ _id: req.params.id }, { $inc: { like: 1 } }, function (err, res) {
+    if (err) {
+      console.log("unable to save to database", err);
+    } else {
+      console.log('Successfully to save to database', res);
+    }
+  })
+}
+)
+
+projectRoutes.route('/updatedizlike/:id').post(function (req, res) {
+  Project.updateOne({ _id: req.params.id }, { $inc: { dizlike: 1 } }, function (err, res) {
+    if (err) {
+      console.log("unable to save to database", err);
+    } else {
+      console.log('Successfully to save to database', res);
+    }
+  })
+}
+)
 
 
 module.exports = projectRoutes;

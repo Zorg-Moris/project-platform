@@ -12,10 +12,10 @@ import {
 
 export function getAllProjects() {
     Axios.get('http://localhost:4000/project').then(response => {
-            store.dispatch(getProjects(response.data));
-            console.log("getAllProjects response.data Api store - ", response.data);
-            return response;
-        })
+        store.dispatch(getProjects(response.data));
+        console.log("getAllProjects response.data Api store - ", response.data);
+        return response;
+    })
         .catch(function (error) {
             console.log(error);
         });
@@ -40,12 +40,12 @@ export async function createProject(project) {
         .then(response => {
             console.log("createProject response.data Api store - ", response.data);
             Axios.get('http://localhost:4000/project').then(response => {
-                    store.dispatch(createProjectAction(response.data));
-                    console.log("createProjectAction response.data Api store - ", response.data);
-                    let storage = store.getState();
-                    console.log("storage - ", storage);
-                    return response;
-                })
+                store.dispatch(createProjectAction(response.data));
+                console.log("createProjectAction response.data Api store - ", response.data);
+                let storage = store.getState();
+                console.log("storage - ", storage);
+                return response;
+            })
                 .catch(function (error) {
                     console.log(error);
                 });
@@ -101,5 +101,16 @@ export function setInfoLike(id, infoLike) {
     console.log("ID- ", id);
     console.log("setInfoLike - ", infoLike);
 
-    store.dispatch(setLike(id,infoLike));
+    if (infoLike === "like") {
+        Axios.post('http://localhost:4000/project/updatelike/' + id)
+            .then(console.log("UpDate Like"),
+                store.dispatch(setLike(id, infoLike)))
+            .catch(error => console.log(error));
+
+    } else if (infoLike === "dizlike") {
+        Axios.post('http://localhost:4000/project/updatedizlike/' + id)
+            .then(console.log("UpDate Like"),
+                store.dispatch(setLike(id, infoLike)))
+            .catch(error => console.log(error));
+    }
 }

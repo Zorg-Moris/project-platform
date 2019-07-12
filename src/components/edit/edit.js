@@ -46,7 +46,7 @@ class Edit extends Component {
                 <h3 align="center">Update project</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Person Name:  </label>
+                        <label>Person Name: </label>
                         <input
                             type="text"
                             className="form-control"
