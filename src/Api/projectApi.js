@@ -5,15 +5,17 @@ import {
     createProjectAction,
     editProject,
     deleteProject,
-    setLike
+    setLike,
+    sortLikesAction,
+    sortDateAction
 } from '../actions/projectActions';
+
 
 
 
 export function getAllProjects() {
     Axios.get('http://localhost:4000/project').then(response => {
         store.dispatch(getProjects(response.data));
-        console.log("getAllProjects response.data Api store - ", response.data);
         return response;
     })
         .catch(function (error) {
@@ -23,39 +25,34 @@ export function getAllProjects() {
 
 
 export async function createProject(project) {
-    console.log("project ApiStore - ", project);
 
-    let dateCreateProject = await dateCtereteProject();
+    let dateProject = await dateCreateProject();
 
     const projectInfo = {
-        person_name: project.person_name,
+        user_id: project.user_id,
+        user_name: project.user_name,
         project_name: project.project_name,
         description: project.description,
-        date: dateCreateProject,
+        date: dateProject,
         like: 0,
         dizlike: 0,
     };
 
+
     Axios.post('http://localhost:4000/project/add', projectInfo)
         .then(response => {
-            console.log("createProject response.data Api store - ", response.data);
-            Axios.get('http://localhost:4000/project').then(response => {
-                store.dispatch(createProjectAction(response.data));
-                console.log("createProjectAction response.data Api store - ", response.data);
-                let storage = store.getState();
-                console.log("storage - ", storage);
-                return response;
-            })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        })
-        .catch(function (error) {
+            Axios.get('http://localhost:4000/project').then(res => {
+                store.dispatch(createProjectAction(res.data));
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }).catch(function (error) {
             console.log(error);
         });
 }
 
-async function dateCtereteProject() {
+
+function dateCreateProject() {
     let dateCreateProject = new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
@@ -80,11 +77,18 @@ export async function getProjectDataDb(id) {
 }
 
 
-export function updateInfoProject(project, id) {
-    console.log("updateInfoProject ApiStore - ", project);
-    Axios.post('http://localhost:4000/project/update/' + id, project)
-        .then(res => console.log("res.data", res.data),
-            store.dispatch(editProject(id, project)));
+export async function updateInfoProject(project, id) {
+
+    let info = await Axios.post('http://localhost:4000/project/update/' + id, project)
+        .then(res => {
+            store.dispatch(editProject(id, project));
+            return true;
+        }).catch(function (err) {
+            console.log(err);
+            return false;
+        });
+
+    return info;
 }
 
 //delete
@@ -97,20 +101,30 @@ export function deleteProgectDb(id) {
         .catch(error => console.log(error));
 }
 
-export function setInfoLike(id, infoLike) {
-    console.log("ID- ", id);
-    console.log("setInfoLike - ", infoLike);
 
-    if (infoLike === "like") {
+export function setInfoLike(id, infoLike) {
+       if (infoLike === "like") {
+
         Axios.post('http://localhost:4000/project/updatelike/' + id)
-            .then(console.log("UpDate Like"),
-                store.dispatch(setLike(id, infoLike)))
+            .then(store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
 
     } else if (infoLike === "dizlike") {
         Axios.post('http://localhost:4000/project/updatedizlike/' + id)
-            .then(console.log("UpDate Like"),
+            .then(console.log("UpDate DizLike"),
                 store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
+
     }
 }
+
+
+export function sortLikesApi(toggle) {
+    store.dispatch(sortLikesAction(toggle));
+}
+
+
+export function sortDateApi(toggle) {
+    store.dispatch(sortDateAction(toggle));
+}
+

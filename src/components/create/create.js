@@ -1,66 +1,62 @@
 import React, { Component } from 'react';
-import * as projectApi from '../../server/projectApi';
-import { connect } from 'react-redux';
+import * as projectApi from '../../Api/projectApi';
+import * as authApi from '../../Api/authApi';
+
 
 class Create extends Component {
+    constructor(props) {
+        super(props);
+
+        this.projectNameInput = React.createRef();
+        this.descriptionInput = React.createRef();
+    }
+
 
     onSubmit = (e) => {
         e.preventDefault();
 
-        const projectInfo = {
-            person_name: this.refs.personNameInput.value,
-            project_name: this.refs.projectNameInput.value,
-            description: this.refs.descriptionInput.value,
+        let userInfo = authApi.getAuthApi();
+        let { _id, user_name } = userInfo;
+        let projectInfo = {
+            user_id: _id,
+            user_name: user_name,
+            project_name: this.projectNameInput.current.value,
+            description: this.descriptionInput.current.value,
         };
 
         projectApi.createProject(projectInfo);
 
-        console.log("start function onSubmit -", projectInfo);
-
-        this.refs.personNameInput.value = "";
-        this.refs.projectNameInput.value = "";
-        this.refs.descriptionInput.value = "";
+        this.projectNameInput.current.value = "";
+        this.descriptionInput.current.value = "";
     }
+
 
     render() {
         return (
-            <div style={{ marginTop: 10, marginLeft: 10 }}>
+            <div style={ { marginTop: 10, marginLeft: 10 } }>
                 <h3>Add Project</h3>
-                <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                        <label>Person Name:  </label>
-                        <input type="text"
-                            className="form-control"
-                            ref="personNameInput" />
-                    </div>
+                <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
                         <label>Project Name: </label>
                         <input type="text"
-                            ref="projectNameInput"
+                            ref={ this.projectNameInput }
                             className="form-control" />
                     </div>
                     <div className="form-group">
                         <label>Project Description: </label>
                         <textarea type="text"
                             className="form-control"
-                            ref="descriptionInput" />
+                            ref={ this.descriptionInput } />
                     </div>
                     <div className="form-group">
                         <input type="submit"
                             value="Create"
                             className="btn btn-primary" />
                     </div>
-
                 </form>
             </div>
         )
     }
 };
 
-let mapStateToProps = function (store) {
-    return {
-        progect: store.projectState.progect
-    };
-};
-
-export default connect(mapStateToProps)(Create);
+export default Create;

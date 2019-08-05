@@ -1,13 +1,11 @@
 import * as types from '../actions/actionTypes';
 
 export function getProjects(projects) {
-    console.log("project Action - ", projects);
     return {
         type: types.GET_PROJECTS,
         projects: projects
     };
 }
-
 
 export function createProjectAction(projects) {
     return {
@@ -31,11 +29,24 @@ export function deleteProject(id) {
     }
 }
 
-export function setLike(id, infoLike, project) {
+export function setLike(id, infoLike) {
     return {
         type: types.SET_LIKES,
         id,
-        infoLike,
-        project
+        infoLike
+    }
+}
+
+export function sortLikesAction(likeToggle) {
+    return {
+        type: types.SORT_LIKES,
+        likeToggle
+    }
+}
+
+export function sortDateAction(dateToggle)  {
+    return {
+        type: types.SORT_DATE,
+        dateToggle
     }
 }

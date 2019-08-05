@@ -6,6 +6,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./Db.js');
 const projectRoute = require('./project.route');
+const userRoute = require('./user.route');
 
 
 mongoose.Promise = global.Promise;
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/project', projectRoute);
-
+app.use('/user', userRoute);
 
 app.listen(PORT, function () {
   console.log('Server is running on Port:', PORT);

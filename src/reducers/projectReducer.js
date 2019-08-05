@@ -6,21 +6,14 @@ const initialState = {
 
 
 const projectReducer = function (state = initialState, action) {
-    console.log("action.types - ", action.type);
 
     switch (action.type) {
         case types.GET_PROJECTS:
-            console.log("project reduser Object - ", Object.assign({}, state, {
-                projects: action.projects
-            }));
             return {
                 ...state, projects: action.projects
             };
 
         case types.CREATE_PROJECT:
-            console.log("project reduser Object - ", Object.assign({}, state, {
-                projects: [...state.projects, action.project]
-            }));
             return Object.assign({}, state, {
                 projects: action.projects
             });
@@ -60,9 +53,44 @@ const projectReducer = function (state = initialState, action) {
                     } : item)
                 });
             }
-
             break;
 
+        case types.SORT_LIKES:
+            if (action.likeToggle) {
+                return Object.assign({}, state, {
+                    projects: [...state.projects.sort(function (a, b) {
+                        return a.like - b.like;
+                    })]
+                })
+            } else if (!action.likeToggle) {
+                return Object.assign({}, state, {
+                    projects: [...state.projects.sort(function (a, b) {
+                        return b.like - a.like;
+                    })]
+                })
+            }
+            break;
+
+        case types.SORT_DATE:
+
+            if (action.dateToggle) {
+                return Object.assign({}, state, {
+                    projects: [...state.projects.sort(function (a, b) {
+                        let dateA = new Date(a.date);
+                        let dateB = new Date(b.date);
+                        return dateB - dateA;
+                    })]
+                })
+            } else if (!action.dateToggle) {
+                return Object.assign({}, state, {
+                    projects: [...state.projects.sort(function (a, b) {
+                        let dateA = new Date(a.date);
+                        let dateB = new Date(b.date);
+                        return dateA - dateB;
+                    })]
+                })
+            }
+            break;
         default:
             return state
     }

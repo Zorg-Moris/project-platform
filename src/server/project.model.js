@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 
 let Project = new Schema({
-  person_name: {
+  user_id: {
+    type: String
+  },
+  user_name: {
     type: String
   },
   project_name: {
@@ -22,7 +25,7 @@ let Project = new Schema({
     type: Number
   },
 }, {
-  collection: 'projects'
-});
+    collection: 'projects'
+  });
 
 module.exports = mongoose.model('Project', Project);

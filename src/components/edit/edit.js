@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
-import * as projectApi from '../../server/projectApi';
+import * as projectApi from '../../Api/projectApi';
 import './editStyle.css';
-import { connect } from 'react-redux';
 
 
 class Edit extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            messge: false
+        }
+
+        this.personNameInput = React.createRef();
+        this.projectNameInput = React.createRef();
+        this.descriptionInput = React.createRef();
+    };
+
 
     componentDidMount() {
         this.getData();
@@ -13,59 +24,74 @@ class Edit extends Component {
 
     async getData() {
         let projectInfo = await projectApi.getProjectDataDb(this.props.match.params.id);
-        console.log(projectInfo);
 
-        let { person_name, project_name, like, dizlike, description } = projectInfo;
+        let { _id, user_name, user_id, project_name, like, dizlike, date, description } = projectInfo;
 
-        this.refs.personNameInput.value = person_name;
-        this.refs.projectNameInput.value = project_name;
-        this.refs.descriptionInput.value = description;
-      // check when the likes will be ready
+        this.personNameInput.current.value = user_name;
+        this.projectNameInput.current.value = project_name;
+        this.descriptionInput.current.value = description;
         this.like = like;
         this.dizlike = dizlike;
+        this.date = date;
+        this.user_id = user_id;
+        this._id = _id;
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         const projectInfo = {
-            person_name: this.refs.personNameInput.value,
-            project_name: this.refs.projectNameInput.value,
-            description: this.refs.descriptionInput.value,
-           // check when the likes will be ready
+            _id: this._id,
+            user_id: this.user_id,
+            user_name: this.personNameInput.current.value,
+            project_name: this.projectNameInput.current.value,
+            description: this.descriptionInput.current.value,
+            date: this.date,
             like: this.like,
-            dizlike: this.dizlike,
+            dizlike: this.dizlike
         };
+        this.checkInfo(projectInfo);
+    }
 
-        projectApi.updateInfoProject(projectInfo, this.props.match.params.id);
+
+    async checkInfo(projectInfo) {
+        let info = await projectApi.updateInfoProject(projectInfo, this.props.match.params.id);
+        if (info) {
+            this.setState({ messge: "successfully" });
+            setTimeout(() => {
+                this.props.history.push('/myproject');
+            }, 2000);
+        } else {
+            this.setState({ messge: "file is not edited" })
+        }
     }
 
 
     render() {
         return (
-            <div style={{ marginTop: 10 }}>
+            <div style={ { marginTop: 10 } }>
                 <h3 align="center">Update project</h3>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
                         <label>Person Name: </label>
                         <input
                             type="text"
                             className="form-control"
-                            ref="personNameInput"
+                            ref={this.personNameInput}
                         />
                     </div>
                     <div className="form-group">
                         <label>Project Name: </label>
                         <input type="text"
                             className="form-control"
-                            ref="projectNameInput"
+                            ref={this.projectNameInput}
                         />
                     </div>
                     <div className="form-group">
                         <label>Project description: </label>
                         <textarea type="text"
                             className="form-control"
-                            ref="descriptionInput"
-                            onChange={this.onchangeDataInput}
+                            ref={this.descriptionInput}
+                            onChange={ this.onchangeDataInput }
                         />
                     </div>
                     <div className="form-group">
@@ -75,16 +101,10 @@ class Edit extends Component {
                         >Update Progect Info</button>
                     </div>
                 </form>
+                <div>{ this.state.messge }</div>
             </div>
         )
     }
 }
 
-
-let mapStateToProps = function (store) {
-    return {
-        progect: store.projectState.progect
-    };
-};
-
-export default connect(mapStateToProps)(Edit);
+export default Edit;
