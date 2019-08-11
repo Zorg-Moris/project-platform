@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as projectApi from '../../../Api/projectApi';
-import './myProjectList.css';
+import './userProjectList.css';
 
 
-class MyProjectList extends Component {
+class userProjectList extends Component {
 
     onDelete = (id) => {
         projectApi.deleteProgectDb(id);
@@ -51,4 +51,4 @@ class MyProjectList extends Component {
     }
 }
 
-export default MyProjectList; 
+export default userProjectList; 

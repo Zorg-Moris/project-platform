@@ -3,9 +3,9 @@ export const GET_PROJECTS = 'GET_PROJECTS'
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 export const EDIT_PROJECT = 'EDIT_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
-export const SET_LIKES = "SET_LIKES";
-export const SORT_LIKES = "SORT_LIKES";
-export const SORT_DATE = "SORT_DATE";
+export const SET_LIKES = 'SET_LIKES';
+export const SORT_LIKES = 'SORT_LIKES';
+export const SORT_DATE = 'SORT_DATE';
 
 //user
 export const CREATE_USER = 'CREATE_USER';

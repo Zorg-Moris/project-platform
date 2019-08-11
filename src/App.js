@@ -4,30 +4,40 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import Create from './components/create/create';
-import ProjectListContainer from './components/containers/progectListContainer/projectListContainer';
-import Edit from './components/edit/edit';
+import ProjectListContainer from './components/containers/progectListContainer';
+import Edit from './components/editProject';
 import Login from './components/login/login';
 import Register from './components/registerUser/registerUser';
-import MyProject from './components/containers/myProjectListContainer/myProjectListContainer';
+import userProject from './components/containers/userProjectListContainer';
 
 class App extends Component {
-
-
-  showLinks = () => {
    
-    if (this.props.user) {
-      return (
-        <React.Fragment>
-          <li>
-            <Link to="/create">Create</Link>
-          </li>
-          <li>
-            <Link to="/myproject">My Project</Link>
-          </li>
-        </React.Fragment>
-      )
+  showLinks () {
+ let links = {};
+
+    if (!this.props.user) {
+    links = {
+      "/login":"Login",
+     "/registration":"Register",
+      "/all_projects":"Projects"
+    }
+  } else if(this.props.user){
+    links = {
+      "/login":"Login",
+     "/registration":"Register",
+      "/all_projects":"Projects",
+      "/create":"Create",
+     "/my_project": "My Project"
     }
   }
+
+    let listItem = Object.keys(links).map((link,index)=>
+    <li key={index}>
+      <Link to={link}>{links[link]}</Link>
+      </li>
+    );
+    return listItem;
+}
 
   render() {
     return (
@@ -35,25 +45,16 @@ class App extends Component {
         <div className="container">
           <div>
             <ul>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/registration">Register</Link>
-              </li>
-              <li>
-                <Link to="/allprojects">Projects</Link>
-              </li>
-              { this.showLinks() }
+             {this.showLinks()}
             </ul>
 
             <hr />
 
-            <Route exact path='/allprojects' component={ ProjectListContainer }></Route>
+            <Route exact path='/all_projects' component={ ProjectListContainer }/>
             <Route path='/create' component={ Create } />
-            <Route path='/myproject' component={ MyProject } />
+            <Route path='/my_project' component={ userProject } />
             <Route path='/edit/:id' component={ Edit } />
-            <Route path='/login' component={ Login }></Route>
+            <Route path='/login' component={ Login }/> 
             <Route path='/registration' component={ Register } />
           </div>
         </div>
@@ -62,7 +63,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = function (store) {
+const mapStateToProps=(store)=>{
   console.log("APP store - ", store);
   return {
     user: store.authenticationState.user
@@ -70,7 +71,3 @@ const mapStateToProps = function (store) {
 };
 
 export default connect(mapStateToProps)(App);
-
-
-
-

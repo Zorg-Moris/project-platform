@@ -68,7 +68,8 @@ class ProjectListContainer extends Component {
 }
 
 
-const mapStateToProps = function (store) {
+const mapStateToProps = (store)=> {
+    console.log("ProjectListContainer store - ", store);
     return {
         projects: store.projectState.projects,
         user: store.authenticationState.user

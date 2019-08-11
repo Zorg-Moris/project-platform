@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import store from '../store/store';
+import store from '../store';
 import {
     createUserAction,
     addLikeProject
@@ -10,7 +10,7 @@ import {
 
 export function createUserApi(user) {
 
-    Axios.post('http://localhost:4000/user/adduser', user)
+    Axios.post('http://localhost:4000/user/add_user', user)
         .then(response => {
             getAllUsers();
         }).catch(function (error) {
@@ -50,9 +50,9 @@ export function addUserLikeProject(project_id, user_id) {
         project_id
     }
 
-    Axios.post('http://localhost:4000/user/setlike', info)
-        .then(response => {
-            console.log(response);
+    Axios.post('http://localhost:4000/user/set_like', info)
+        .then(res => {
+            console.log(res);
             // return response;
         }).catch(function (error) {
             console.log(error);

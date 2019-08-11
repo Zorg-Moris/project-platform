@@ -8,7 +8,7 @@ class Edit extends Component {
         super(props);
 
         this.state = {
-            messge: false
+            messge: ""
         }
 
         this.personNameInput = React.createRef();
@@ -25,7 +25,7 @@ class Edit extends Component {
     async getData() {
         let projectInfo = await projectApi.getProjectDataDb(this.props.match.params.id);
 
-        let { _id, user_name, user_id, project_name, like, dizlike, date, description } = projectInfo;
+        let { _id, user_name, user_id, project_name, like, dizlike, date, description,likes } = projectInfo;
 
         this.personNameInput.current.value = user_name;
         this.projectNameInput.current.value = project_name;
@@ -35,6 +35,7 @@ class Edit extends Component {
         this.date = date;
         this.user_id = user_id;
         this._id = _id;
+        this.likes = likes;
     }
 
     onSubmit = (e) => {
@@ -58,7 +59,7 @@ class Edit extends Component {
         if (info) {
             this.setState({ messge: "successfully" });
             setTimeout(() => {
-                this.props.history.push('/myproject');
+                this.props.history.push('/my_project');
             }, 2000);
         } else {
             this.setState({ messge: "file is not edited" })
@@ -73,10 +74,12 @@ class Edit extends Component {
                 <form onSubmit={ this.onSubmit }>
                     <div className="form-group">
                         <label>Person Name: </label>
+                 
                         <input
                             type="text"
                             className="form-control"
                             ref={this.personNameInput}
+                            disabled
                         />
                     </div>
                     <div className="form-group">

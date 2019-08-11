@@ -20,7 +20,7 @@ class ProjectList extends Component {
     onSetInfoLike = (idProject, e) => {
         let infolike = e.target.dataset.infolike;
         let user = this.props.user;
-
+// проверить, скорее всего  в редьюсер записывается не правильная инфа сделать как с увеличением лайка
         projectApi.setInfoLike(idProject, infolike);
         userApi.addUserLikeProject(idProject, user._id);
 
@@ -28,14 +28,16 @@ class ProjectList extends Component {
     }
 
     checkProjectLike(project) {
-        let project_id = project._id
+        console.log("check project - ", project);
+        let project_id = project._id;
         let check = this.state.likes.includes(project_id);
+        console.log("check - ", check);
         return check;
     }
 
     likeContainerAuth(project) {
         let user = this.props.user;
-        let checkLikes = this.checkProjectLike(project)
+        let checkLikes = this.checkProjectLike(project);
 
         if (user._id !== project.user_id && checkLikes === false) {
             return (

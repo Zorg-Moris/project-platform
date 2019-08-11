@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import MyProjectList from '../../views/myProjectList/myProjectList';
-import './myProjectList.css';
+import UserProjectList from '../../views/userProjectList';
+import './userProjectList.css';
 import * as projectApi from '../../../Api/projectApi';
 import { connect } from 'react-redux';
 
-class MyProjectListContainer extends Component {
+class UserProjectListContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,7 +60,7 @@ class MyProjectListContainer extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <MyProjectList projects={ this.myProjects() } user={ this.props.user }></MyProjectList>
+                            <UserProjectList projects={ this.myProjects() } user={ this.props.user }></UserProjectList>
                         </tbody>
                     </table>
                 </div>
@@ -79,4 +79,4 @@ const mapStateToProps = function (store) {
     };
 };
 
-export default connect(mapStateToProps)(MyProjectListContainer);
+export default connect(mapStateToProps)(UserProjectListContainer);

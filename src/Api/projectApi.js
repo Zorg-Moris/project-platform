@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import store from '../store/store';
+import store from '../store';
 import {
     getProjects,
     createProjectAction,
@@ -105,12 +105,12 @@ export function deleteProgectDb(id) {
 export function setInfoLike(id, infoLike) {
        if (infoLike === "like") {
 
-        Axios.post('http://localhost:4000/project/updatelike/' + id)
+        Axios.post('http://localhost:4000/project/update_like/' + id)
             .then(store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
 
     } else if (infoLike === "dizlike") {
-        Axios.post('http://localhost:4000/project/updatedizlike/' + id)
+        Axios.post('http://localhost:4000/project/update_dizlike/' + id)
             .then(console.log("UpDate DizLike"),
                 store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));

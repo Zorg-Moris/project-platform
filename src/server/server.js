@@ -1,14 +1,14 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
-const PORT = 4000;
 const cors = require('cors');
 const mongoose = require('mongoose');
+
 const config = require('./Db.js');
-const projectRoute = require('./project.route');
-const userRoute = require('./user.route');
+const projectRoute = require('./routes/project.route');
+const userRoute = require('./routes/user.route');
 
-
+const app = express();
+const PORT = 4000;
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
   () => { console.log('Database is connected') },

@@ -1,10 +1,11 @@
 const express = require('express');
 const userRoutes = express.Router();
 
-let User = require('./user.model');
+
+let User = require('../models/user.model');
 
 
-userRoutes.route('/adduser').post(function (req, res) {
+userRoutes.route('/add_user').post(function (req, res) {
   let user = new User(req.body);
   user.save()
     .then(user => {
@@ -40,7 +41,7 @@ userRoutes.route('/auth').post(function (req, res) {
 });
 
 
-userRoutes.route('/setlike').post(function (req, res) {
+userRoutes.route('/set_like').post(function (req, res) {
 
   console.log(req.body);
   let { user_id, project_id } = req.body;

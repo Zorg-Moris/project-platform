@@ -2,7 +2,7 @@ const express = require('express');
 const projectRoutes = express.Router();
 
 
-let Project = require('./project.model');
+let Project = require('../models/project.model');
 
 // Defined store route
 projectRoutes.route('/add').post(function (req, res) {
@@ -73,7 +73,7 @@ projectRoutes.route('/delete/:id').get(function (req, res) {
 
 //update info like/dizlike
 
- projectRoutes.route('/updatelike/:id').post(function (req, res) {
+ projectRoutes.route('/update_like/:id').post(function (req, res) {
   Project.updateOne({ _id: req.params.id }, { $inc: { like: 1 } }, function (err, response) {
     if (err) {
       console.log("unable to save to database", err);
@@ -86,7 +86,7 @@ projectRoutes.route('/delete/:id').get(function (req, res) {
 })
 
 
-projectRoutes.route('/updatedizlike/:id').post(function (req, res) {
+projectRoutes.route('/update_dizlike/:id').post(function (req, res) {
   Project.updateOne({ _id: req.params.id }, { $inc: { dizlike: 1 } }, function (err, res) {
     if (err) {
       console.log("unable to save to database", err);
