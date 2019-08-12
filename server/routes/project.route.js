@@ -46,8 +46,8 @@ projectRoutes.route('/update/:id').post(function (req, res) {
       project.person_name = req.body.person_name;
       project.project_name = req.body.project_name;
       project.description = req.body.description;
-      // project.like = req.body.like;
-      // project.dizlike = req.body.dizlike;
+      project.like = req.body.like;
+      project.dizlike = req.body.dizlike;
 
       project.save().then(project => {
         res.json('Update complete');
@@ -73,25 +73,27 @@ projectRoutes.route('/delete/:id').get(function (req, res) {
 
 //update info like/dizlike
 
- projectRoutes.route('/update_like/:id').post(function (req, res) {
+ projectRoutes.route('/update_likes/:id').put(function (req, res) {
   Project.updateOne({ _id: req.params.id }, { $inc: { like: 1 } }, function (err, response) {
     if (err) {
       console.log("unable to save to database", err);
-      throw err;
+      res.status(400).send("unable to save to database");
     } else {
-      console.log('Successfully to save to database - ', response);
-      // res.status(200).send('Successfully to save to database')
+      // console.log('Successfully to save to database - ', response);
+      res.status(200).send('Successfully to save to database project Api');
     }
   })
 })
 
 
-projectRoutes.route('/update_dizlike/:id').post(function (req, res) {
-  Project.updateOne({ _id: req.params.id }, { $inc: { dizlike: 1 } }, function (err, res) {
+projectRoutes.route('/update_dizlikes/:id').put(function (req, res) {
+  Project.updateOne({ _id: req.params.id }, { $inc: { dizlike: 1 } }, function (err, response) {
     if (err) {
       console.log("unable to save to database", err);
+      res.status(400).send("unable to save to database");
     } else {
-      console.log('Successfully to save to database', res);
+      console.log('Successfully to save to database', response);
+      res.status(200).send('Successfully to save to database');
     }
   })
 })

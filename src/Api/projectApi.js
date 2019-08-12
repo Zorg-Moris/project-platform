@@ -105,16 +105,15 @@ export function deleteProgectDb(id) {
 export function setInfoLike(id, infoLike) {
        if (infoLike === "like") {
 
-        Axios.post('http://localhost:4000/project/update_like/' + id)
+        Axios.put('http://localhost:4000/project/update_likes/' + id)
             .then(store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
 
     } else if (infoLike === "dizlike") {
-        Axios.post('http://localhost:4000/project/update_dizlike/' + id)
+        Axios.put('http://localhost:4000/project/update_dizlikes/' + id)
             .then(console.log("UpDate DizLike"),
                 store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
-
     }
 }
 

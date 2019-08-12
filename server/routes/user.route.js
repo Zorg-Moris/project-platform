@@ -41,17 +41,19 @@ userRoutes.route('/auth').post(function (req, res) {
 });
 
 
-userRoutes.route('/set_like').post(function (req, res) {
+userRoutes.route('/set_likes').put(function (req, res) {
 
   console.log(req.body);
   let { user_id, project_id } = req.body;
 
-  User.updateOne({ _id: user_id }, { $addToSet: { likes: [project_id] } }, function (err, res) {
+  User.updateOne({ _id: user_id }, { $addToSet: { likes: [project_id] } }, function (err, responce) {
 
     if (err) {
       console.log("unable to save to database", err);
+      res.status(400).send("unable to save to database set like");
     } else {
-      console.log('Successfully to save to database', res);
+      console.log('Successfully to save to database set_like', responce);
+      res.status(200).send('Successfully to save to database set like');
     }
   })
 })

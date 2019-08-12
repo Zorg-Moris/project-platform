@@ -50,7 +50,7 @@ export function addUserLikeProject(project_id, user_id) {
         project_id
     }
 
-    Axios.post('http://localhost:4000/user/set_like', info)
+    Axios.put('http://localhost:4000/user/set_likes', info)
         .then(res => {
             console.log(res);
             // return response;
