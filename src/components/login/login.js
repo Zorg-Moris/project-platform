@@ -39,7 +39,7 @@ class Login extends Component {
             authApi.setAuthApi(userDb);
             userApi.getAllUsers();
             setTimeout(() => {
-                this.props.history.push('/all_projects');
+                this.props.history.push('/projects');
             }, 2000);
         } else {
             this.setState({ message: "wrong login or password" });

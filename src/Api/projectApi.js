@@ -14,10 +14,10 @@ import {
 
 
 export function getAllProjects() {
-    Axios.get('http://localhost:4000/project').then(response => {
-        store.dispatch(getProjects(response.data));
-        return response;
-    })
+    Axios.get('http://localhost:4000/projects').then(response => {
+            store.dispatch(getProjects(response.data));
+            return response;
+        })
         .catch(function (error) {
             console.log(error);
         });
@@ -39,9 +39,9 @@ export async function createProject(project) {
     };
 
 
-    Axios.post('http://localhost:4000/project/add', projectInfo)
+    Axios.post('http://localhost:4000/projects', projectInfo)
         .then(response => {
-            Axios.get('http://localhost:4000/project').then(res => {
+            Axios.get('http://localhost:4000/projects').then(res => {
                 store.dispatch(createProjectAction(res.data));
             }).catch(function (error) {
                 console.log(error);
@@ -67,7 +67,7 @@ function dateCreateProject() {
 
 export async function getProjectDataDb(id) {
 
-    let project = await Axios.get('http://localhost:4000/project/edit/' + id)
+    let project = await Axios.get('http://localhost:4000/projects/' + id)
         .then(response => {
             return response.data;
         }).catch(function (error) {
@@ -79,7 +79,7 @@ export async function getProjectDataDb(id) {
 
 export async function updateInfoProject(project, id) {
 
-    let info = await Axios.post('http://localhost:4000/project/update/' + id, project)
+    let info = await Axios.put('http://localhost:4000/projects/' + id, project)
         .then(res => {
             store.dispatch(editProject(id, project));
             return true;
@@ -95,7 +95,7 @@ export async function updateInfoProject(project, id) {
 
 export function deleteProgectDb(id) {
 
-    Axios.get('http://localhost:4000/project/delete/' + id)
+    Axios.delete('http://localhost:4000/projects/' + id)
         .then(console.log("Deleted"),
             store.dispatch(deleteProject(id)))
         .catch(error => console.log(error));
@@ -103,14 +103,14 @@ export function deleteProgectDb(id) {
 
 
 export function setInfoLike(id, infoLike) {
-       if (infoLike === "like") {
+    if (infoLike === "like") {
 
-        Axios.put('http://localhost:4000/project/update_likes/' + id)
+        Axios.put('http://localhost:4000/projects/' + id + '/likes')
             .then(store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
 
     } else if (infoLike === "dizlike") {
-        Axios.put('http://localhost:4000/project/update_dizlikes/' + id)
+        Axios.put('http://localhost:4000/projects/' + id + '/dizlikes')
             .then(console.log("UpDate DizLike"),
                 store.dispatch(setLike(id, infoLike)))
             .catch(error => console.log(error));
@@ -126,4 +126,3 @@ export function sortLikesApi(toggle) {
 export function sortDateApi(toggle) {
     store.dispatch(sortDateAction(toggle));
 }
-

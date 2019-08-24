@@ -19,13 +19,13 @@ class App extends Component {
     links = {
       "/login":"Login",
      "/registration":"Register",
-      "/all_projects":"Projects"
+      "/projects":"Projects"
     }
   } else if(this.props.user){
     links = {
       "/login":"Login",
      "/registration":"Register",
-      "/all_projects":"Projects",
+      "/projects":"Projects",
       "/create":"Create",
      "/my_project": "My Project"
     }
@@ -50,7 +50,7 @@ class App extends Component {
 
             <hr />
 
-            <Route exact path='/all_projects' component={ ProjectListContainer }/>
+            <Route exact path='/projects' component={ ProjectListContainer }/>
             <Route path='/create' component={ Create } />
             <Route path='/my_project' component={ userProject } />
             <Route path='/edit/:id' component={ Edit } />

@@ -6,11 +6,9 @@ import {
 } from '../actions/userActions';
 
 
-
-
 export function createUserApi(user) {
 
-    Axios.post('http://localhost:4000/user/add_user', user)
+    Axios.post('http://localhost:4000/users', user)
         .then(response => {
             getAllUsers();
         }).catch(function (error) {
@@ -18,9 +16,8 @@ export function createUserApi(user) {
         });
 }
 
-
 export function getAllUsers() {
-        Axios.get('http://localhost:4000/user').then(response => {
+        Axios.get('http://localhost:4000/users').then(response => {
         store.dispatch(createUserAction(response.data));
         return response;
     }).catch(function (error) {
@@ -31,7 +28,7 @@ export function getAllUsers() {
 
 export async function checkUserDb(user) {
 
-    let info = await Axios.post('http://localhost:4000/user/auth', user)
+    let info = await Axios.post('http://localhost:4000/users/auth', user)
         .then(response => {
             return response.data;
         }).catch(function (error) {
@@ -41,8 +38,6 @@ export async function checkUserDb(user) {
     return info;
 }
 
-
-
 export function addUserLikeProject(project_id, user_id) {
     store.dispatch(addLikeProject(user_id, project_id));
     let info = {
@@ -50,10 +45,9 @@ export function addUserLikeProject(project_id, user_id) {
         project_id
     }
 
-    Axios.put('http://localhost:4000/user/set_likes', info)
+    Axios.put('http://localhost:4000/users/likes', info)
         .then(res => {
             console.log(res);
-            // return response;
         }).catch(function (error) {
             console.log(error);
         });

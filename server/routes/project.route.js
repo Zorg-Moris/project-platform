@@ -5,7 +5,7 @@ const projectRoutes = express.Router();
 let Project = require('../models/project.model');
 
 // Defined store route
-projectRoutes.route('/add').post(function (req, res) {
+projectRoutes.route('/').post(function (req, res) {
   let project = new Project(req.body);
   project.save()
     .then(project => {
@@ -19,18 +19,18 @@ projectRoutes.route('/add').post(function (req, res) {
 
 // Defined get data(index or listing) route
 projectRoutes.route('/').get(function (req, res) {
-  Project.find({}, function (err, project) {
+  Project.find({}, function (err, projects) {
     if (err) {
-      console.log(err);
+      res.status(400).send("unable to save to database - ", err);
     }
     else {
-      res.json(project);
+       res.json(projects);
     }
   });
 });
 
 // Defined edit route
-projectRoutes.route('/edit/:id').get(function (req, res) {
+projectRoutes.route('/:id').get(function (req, res) {
   let id = req.params.id;
   Project.findById(id, function (err, project) {
     res.json(project);
@@ -38,7 +38,7 @@ projectRoutes.route('/edit/:id').get(function (req, res) {
 });
 
 //  Defined update route
-projectRoutes.route('/update/:id').post(function (req, res) {
+projectRoutes.route('/:id').put(function (req, res) {
   Project.findById(req.params.id, function (err, project) {
     if (!project) {
       res.status(404).send("data is not found");
@@ -50,7 +50,8 @@ projectRoutes.route('/update/:id').post(function (req, res) {
       project.dizlike = req.body.dizlike;
 
       project.save().then(project => {
-        res.json('Update complete');
+        // res.json('Update complete');
+        res.json(project);
       })
         .catch(err => {
           res.status(400).send("unable to update the database");
@@ -60,39 +61,36 @@ projectRoutes.route('/update/:id').post(function (req, res) {
 });
 
 // Defined delete 
-projectRoutes.route('/delete/:id').get(function (req, res) {
+projectRoutes.route('/:id').delete(function (req, res) {
   Project.findOneAndDelete({ _id: req.params.id }, function (err, project) {
     if (err) {
-      res.json(err);
+      res.status(404).send("unable to delete in database - ", err);
     }
     else {
-      res.json('Successfully removed');
+       res.status(204).send ('Successfully removed');
+      // res.json('Successfully removed');
     }
   });
 });
 
 //update info like/dizlike
 
- projectRoutes.route('/update_likes/:id').put(function (req, res) {
+ projectRoutes.route('/:id/likes').put(function (req, res) {
   Project.updateOne({ _id: req.params.id }, { $inc: { like: 1 } }, function (err, response) {
     if (err) {
-      console.log("unable to save to database", err);
       res.status(400).send("unable to save to database");
     } else {
-      // console.log('Successfully to save to database - ', response);
       res.status(200).send('Successfully to save to database project Api');
     }
   })
 })
 
 
-projectRoutes.route('/update_dizlikes/:id').put(function (req, res) {
+projectRoutes.route('/:id/dizlikes').put(function (req, res) {
   Project.updateOne({ _id: req.params.id }, { $inc: { dizlike: 1 } }, function (err, response) {
     if (err) {
-      console.log("unable to save to database", err);
       res.status(400).send("unable to save to database");
     } else {
-      console.log('Successfully to save to database', response);
       res.status(200).send('Successfully to save to database');
     }
   })
