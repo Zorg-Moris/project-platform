@@ -25,6 +25,7 @@ projectRoutes.route('/').get(function (req, res) {
     }
     else {
        res.json(projects);
+      //  res.status(200).send('Successfully to save to database project Api');
     }
   });
 });

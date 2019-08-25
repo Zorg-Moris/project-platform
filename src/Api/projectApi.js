@@ -16,7 +16,7 @@ import {
 export function getAllProjects() {
     Axios.get('http://localhost:4000/projects').then(response => {
             store.dispatch(getProjects(response.data));
-            return response;
+            // return response;
         })
         .catch(function (error) {
             console.log(error);

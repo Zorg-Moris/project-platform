@@ -9,7 +9,7 @@ class ProjectList extends Component {
         super(props);
 
         this.state = {
-            likes: this.props.user.likes
+            likes: this.props.user.user.likes
         }
     }
 
@@ -19,7 +19,7 @@ class ProjectList extends Component {
 
     onSetInfoLike = (idProject, e) => {
         let infolike = e.target.dataset.infolike;
-        let user = this.props.user;
+        let user = this.props.user.user;
 // проверить, скорее всего  в редьюсер записывается не правильная инфа сделать как с увеличением лайка
         projectApi.setInfoLike(idProject, infolike);
         userApi.addUserLikeProject(idProject, user._id);
@@ -36,7 +36,7 @@ class ProjectList extends Component {
     }
 
     likeContainerAuth(project) {
-        let user = this.props.user;
+        let user = this.props.user.user;
         let checkLikes = this.checkProjectLike(project);
 
         if (user._id !== project.user_id && checkLikes === false) {
@@ -77,7 +77,7 @@ class ProjectList extends Component {
         )
     }
 
-    //https://codeguida.com/post/1304        попробовать сделать карточки как тут 
+    //https://codeguida.com/post/1304  попробовать сделать карточки как тут 
 
     render() {
         return (
@@ -97,7 +97,7 @@ class ProjectList extends Component {
                         <td>
                             { project.date }
                         </td>
-                        { this.props.user ? this.likeContainerAuth(project) : this.likeContainer(project) }
+                        { this.props.user.userAuth ? this.likeContainerAuth(project) : this.likeContainer(project) }
                     </tr>
 
                 ))

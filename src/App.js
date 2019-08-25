@@ -15,13 +15,13 @@ class App extends Component {
   showLinks () {
  let links = {};
 
-    if (!this.props.user) {
+    if (!this.props.user.userAuth) {
     links = {
       "/login":"Login",
      "/registration":"Register",
       "/projects":"Projects"
     }
-  } else if(this.props.user){
+  } else if(this.props.user.userAuth){
     links = {
       "/login":"Login",
      "/registration":"Register",
@@ -66,7 +66,7 @@ class App extends Component {
 const mapStateToProps=(store)=>{
   console.log("APP store - ", store);
   return {
-    user: store.authenticationState.user
+    user: store.authenticationState
   };
 };
 

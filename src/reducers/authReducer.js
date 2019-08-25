@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const intialState = {
-    user: false
+    user: {},
+    userAuth: false
 }
 
 
@@ -24,7 +25,8 @@ const intialState = {
 
 const handleAuth = (state, { user }) => ({
     ...state, 
-    user
+    user,
+    userAuth: true
 })
 
 const handlers = {

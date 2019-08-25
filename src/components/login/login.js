@@ -81,7 +81,7 @@ class Login extends Component {
 
 let MapStateToProps = function (store) {
     return {
-        user: store.authenticationState.user
+        user: store.authenticationState
     };
 };
 export default connect(MapStateToProps)(Login);
