@@ -14,3 +14,4 @@ export const ADD_PROJECT_ID = 'ADD_PROJECT_ID'
 
 //auth
 export const SET_AUTH = 'SET_AUTH';
+export const SET_LIKES_USER = 'SET_LIKES_USER';

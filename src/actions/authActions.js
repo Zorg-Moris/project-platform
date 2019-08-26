@@ -6,3 +6,12 @@ export function setAuthAction(user) {
         user
     };
 }
+
+
+export function setLikesUserAuth(user,project_id) {
+    return {
+        type: types.SET_LIKES_USER,
+        user,
+        project_id
+    }
+}

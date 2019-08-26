@@ -1,8 +1,7 @@
 import Axios from 'axios';
 import store from '../store';
 import {
-    createUserAction,
-    addLikeProject
+    createUserAction
 } from '../actions/userActions';
 
 
@@ -39,7 +38,7 @@ export async function checkUserDb(user) {
 }
 
 export function addUserLikeProject(project_id, user_id) {
-    store.dispatch(addLikeProject(user_id, project_id));
+    // store.dispatch(addLikeProject(user_id, project_id));
     let info = {
         user_id,
         project_id
@@ -48,6 +47,7 @@ export function addUserLikeProject(project_id, user_id) {
     Axios.put('http://localhost:4000/users/likes', info)
         .then(res => {
             console.log(res);
+            // store.dispatch(addLikeProject(user_id, project_id));
         }).catch(function (error) {
             console.log(error);
         });

@@ -10,11 +10,11 @@ const handleCreateUser = (state, {users}) => ({
     users: users
 })
 
-const handleAddProjectId = (state,{user_id,project_id})=>{
+const handleAddProjectId = (state,{user_id,project_id})=>{   
     return Object.assign({}, state, {
         users: state.users.map(item => item._id === user_id ? {
             ...item,
-            likes: [...this.item.likes, project_id]
+            likes: [...item.likes, project_id]
         } : item)
     });
 }

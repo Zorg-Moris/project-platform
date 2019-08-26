@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as projectApi from '../../../Api/projectApi';
 import './projectList.css';
 import * as  userApi from '../../../Api/userApi';
+import * as authApi from '../../../Api/authApi';
 
 
 class ProjectList extends Component {
@@ -23,15 +24,15 @@ class ProjectList extends Component {
 // проверить, скорее всего  в редьюсер записывается не правильная инфа сделать как с увеличением лайка
         projectApi.setInfoLike(idProject, infolike);
         userApi.addUserLikeProject(idProject, user._id);
-
+        authApi.setLikesAuthUser(user, idProject);
         this.setState({ likes: [...this.state.likes, idProject] });
     }
 
     checkProjectLike(project) {
-        console.log("check project - ", project);
+        // console.log("check project - ", project);
         let project_id = project._id;
         let check = this.state.likes.includes(project_id);
-        console.log("check - ", check);
+        // console.log("check - ", check);
         return check;
     }
 
