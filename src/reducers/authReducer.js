@@ -31,10 +31,9 @@ const handleAuth = (state, {user}) => ({
 
 const handleSetLikesUser = (state, {user, project_id}) => {
   
-    let newLikes = [...user.likes, project_id];
     let updateUser = {
         ...user,
-         likes: newLikes
+         likes:[...user.likes, project_id]
         };
 
     return Object.assign({}, state, {
