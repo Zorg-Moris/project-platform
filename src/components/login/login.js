@@ -36,7 +36,7 @@ class Login extends Component {
 
         if (user_name === loginInput && password === passwordInput) {
             this.setState({ message: "successfully" });
-            authApi.setAuthApi(userDb);
+            authApi.setAuth(userDb);
             userApi.getAllUsers();
             setTimeout(() => {
                 this.props.history.push('/projects');

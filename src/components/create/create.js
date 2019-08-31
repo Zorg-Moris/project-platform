@@ -15,7 +15,7 @@ class Create extends Component {
     onSubmit = (e) => {
         e.preventDefault();
 
-        let userInfo = authApi.getAuthApi();
+        let userInfo = authApi.getAuth();
         let { _id, user_name } = userInfo;
         let projectInfo = {
             user_id: _id,

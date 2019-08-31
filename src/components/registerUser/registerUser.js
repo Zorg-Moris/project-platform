@@ -38,7 +38,7 @@ class Regestration extends Component {
         if (user_name === regInput) {
             this.setState({ message: "such login exists" });
         } else if (user_name !== regInput && password.length) {
-            userApi.createUserApi(user);
+            userApi.createUser(user);
             this.setState({ message: "You are successfully registered" });
         } else {
             this.setState({ message: "some problems check your info" });

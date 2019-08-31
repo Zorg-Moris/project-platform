@@ -4,12 +4,12 @@ import {
 } from '../actions/authActions';
 
 
-export function setAuthApi(user) {
+export function setAuth(user) {
     store.dispatch(setAuthAction(user));
 }
 
 
-export function getAuthApi() {
+export function getAuth() {
     let storage = store.getState();
     return storage.authenticationState.user;
 }

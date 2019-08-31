@@ -5,7 +5,7 @@ import {
 } from '../actions/userActions';
 
 
-export function createUserApi(user) {
+export function createUser(user) {
 
     Axios.post('http://localhost:4000/users', user)
         .then(response => {
