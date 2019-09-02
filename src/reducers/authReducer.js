@@ -6,23 +6,6 @@ const intialState = {
 }
 
 
-
-// const authReducer = function (state = intialState, action) {
-
-//     switch (action.type) {
-//         case types.SET_AUTH:
-
-//             return {
-//                 ...state, user: action.user
-//             };
-
-
-//         default:
-//             return state;
-//     }
-//}
-
-
 const handleAuth = (state, {user}) => ({
     ...state,
     user,

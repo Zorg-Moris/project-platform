@@ -9,10 +9,10 @@ userRoutes.route('/').post(function (req, res) {
   let user = new User(req.body);
   user.save()
     .then(user => {
-      res.status(200).json({ 'user': 'user added successfully' });
+      res.status(201).json('user created successfully - ', user });
     })
     .catch(err => {
-      res.status(400).send('unable to save to database');
+      res.status(400).send('unable to save to database - ', err);
     });
 });
 

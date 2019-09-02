@@ -100,7 +100,6 @@ class ProjectList extends Component {
                         </td>
                         { this.props.user.userAuth ? this.likeContainerAuth(project) : this.likeContainer(project) }
                     </tr>
-
                 ))
                 }
             </React.Fragment >
