@@ -87,7 +87,6 @@ export async function updateInfoProject(project, id) {
             console.log(err);
             return false;
         });
-
     return info;
 }
 

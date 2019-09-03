@@ -9,7 +9,7 @@ userRoutes.route('/').post(function (req, res) {
   let user = new User(req.body);
   user.save()
     .then(user => {
-      res.status(201).json('user created successfully - ', user });
+      res.status(201).json('user created successfully - ', user );
     })
     .catch(err => {
       res.status(400).send('unable to save to database - ', err);
@@ -40,12 +40,11 @@ userRoutes.route('/auth').post(function (req, res) {
 });
 
 
-userRoutes.route('/likes').put(function (req, res) {
+userRoutes.route('/:user_id/likes/:project_id').put(function (req, res) {
 
-  let { user_id, project_id } = req.body;
+  let { user_id, project_id } = req.params;
 
   User.updateOne({ _id: user_id }, { $addToSet: { likes: [project_id] } }, function (err, responce) {
-
     if (err) {
       res.status(400).send("unable to save to database set like");
     } else {
@@ -53,6 +52,7 @@ userRoutes.route('/likes').put(function (req, res) {
     }
   })
 })
+
 
 
 module.exports = userRoutes;

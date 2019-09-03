@@ -81,13 +81,7 @@ projectRoutes.route('/:id').delete(function (req, res) {
 //update info like/dizlike
 
 projectRoutes.route('/:id/likes').put(function (req, res) {
-  Project.updateOne({
-    _id: req.params.id
-  }, {
-    $inc: {
-      like: 1
-    }
-  }, function (err, response) {
+  Project.updateOne({_id: req.params.id}, {$inc: {like: 1}}, function (err, response) {
     if (err) {
       res.status(400).send("unable to save to database");
     } else {
@@ -98,13 +92,7 @@ projectRoutes.route('/:id/likes').put(function (req, res) {
 
 
 projectRoutes.route('/:id/dizlikes').put(function (req, res) {
-  Project.updateOne({
-    _id: req.params.id
-  }, {
-    $inc: {
-      dizlike: 1
-    }
-  }, function (err, response) {
+  Project.updateOne({_id: req.params.id}, {$inc: {dizlike: 1}}, function (err, response) {
     if (err) {
       res.status(400).send("unable to save to database");
     } else {

@@ -16,7 +16,7 @@ export function createUser(user) {
 }
 
 export function getAllUsers() {
-        Axios.get('http://localhost:4000/users').then(response => {
+    Axios.get('http://localhost:4000/users').then(response => {
         store.dispatch(createUserAction(response.data));
         return response;
     }).catch(function (error) {
@@ -37,14 +37,10 @@ export async function checkUserDb(user) {
     return info;
 }
 
-export function addUserLikeProject(project_id, user_id) {
-    // store.dispatch(addLikeProject(user_id, project_id));
-    let info = {
-        user_id,
-        project_id
-    }
 
-    Axios.put('http://localhost:4000/users/likes', info)
+export function addUserLikeProject(project_id, user_id) {
+
+    Axios.put('http://localhost:4000/users/' + user_id + '/likes/' + project_id)
         .then(res => {
             console.log(res);
             // store.dispatch(addLikeProject(user_id, project_id));
