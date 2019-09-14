@@ -15,3 +15,8 @@ export function setLikesUserAuth(user,project_id) {
         project_id
     }
 }
+    export function setLogOutAuth() {
+        return {
+            type: types.LOG_OUT
+        }
+    }

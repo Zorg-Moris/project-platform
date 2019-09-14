@@ -1,6 +1,6 @@
 import store from '../store';
 import {
-    setAuthAction, setLikesUserAuth
+    setAuthAction, setLikesUserAuth,setLogOutAuth
 } from '../actions/authActions';
 
 
@@ -16,4 +16,8 @@ export function getAuth() {
 
 export function setLikesAuthUser(user, project_id) {
     store.dispatch(setLikesUserAuth(user,project_id));
+}
+
+export function setLogOut() {
+    store.dispatch(setLogOutAuth());
 }

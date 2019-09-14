@@ -24,9 +24,17 @@ const handleSetLikesUser = (state, {user, project_id}) => {
     })
 }
 
+const handleLogOut = (state)=> {
+    return Object.assign({},state,{
+        user: {},
+        userAuth: false
+    })
+}
+
 const handlers = {
     [types.SET_AUTH]: handleAuth,
-    [types.SET_LIKES_USER]: handleSetLikesUser
+    [types.SET_LIKES_USER]: handleSetLikesUser,
+    [types.LOG_OUT]: handleLogOut
 }
 
 export default (state = intialState, action) => {

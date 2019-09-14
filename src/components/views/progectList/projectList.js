@@ -21,7 +21,6 @@ class ProjectList extends Component {
     onSetInfoLike = (idProject, e) => {
         let infolike = e.target.dataset.infolike;
         let user = this.props.user.user;
-// проверить, скорее всего  в редьюсер записывается не правильная инфа сделать как с увеличением лайка
         projectApi.setInfoLike(idProject, infolike);
         userApi.addUserLikeProject(idProject, user._id);
         authApi.setLikesAuthUser(user, idProject);

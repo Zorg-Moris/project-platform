@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Redirect, Switch } from 'react-router';
+
 import { connect } from 'react-redux';
+
+import * as authApi from './Api/authApi';
 
 import Create from './components/create/create';
 import ProjectListContainer from './components/containers/progectListContainer';
@@ -11,23 +15,25 @@ import Register from './components/registerUser/registerUser';
 import userProject from './components/containers/userProjectListContainer';
 
 class App extends Component {
-   
+
+
   showLinks () {
- let links = {};
+    let links = {};
 
     if (!this.props.user.userAuth) {
     links = {
       "/login":"Login",
-     "/registration":"Register",
+      "/registration":"Register",
       "/projects":"Projects"
     }
   } else if(this.props.user.userAuth){
     links = {
       "/login":"Login",
-     "/registration":"Register",
+      // "/logout":"Logout",
+      "/registration":"Register",
       "/projects":"Projects",
       "/create":"Create",
-     "/my_project": "My Project"
+      "/my_project": "My Project"
     }
   }
 
@@ -39,6 +45,18 @@ class App extends Component {
     return listItem;
 }
 
+   logOut(){
+     authApi.setLogOut();
+   }
+
+   logoutLink(){
+     return(
+      <li>
+        <Link to='/logout'onClick={(e)=>this.logOut(e)}>Logout</Link>  
+     </li>
+     )
+   }
+
   render() {
     return (
       <Router>
@@ -46,22 +64,26 @@ class App extends Component {
           <div>
             <ul>
              {this.showLinks()}
-            </ul>
+             {this.props.user.userAuth ? this.logoutLink(): "" }
+              </ul>
 
             <hr />
-
+            <Switch> 
+            <Redirect from='/logout' to='/projects'/>
             <Route exact path='/projects' component={ ProjectListContainer }/>
             <Route path='/create' component={ Create } />
             <Route path='/my_project' component={ userProject } />
             <Route path='/edit/:id' component={ Edit } />
             <Route path='/login' component={ Login }/> 
             <Route path='/registration' component={ Register } />
+            </Switch>
           </div>
         </div>
       </Router>
     );
   }
 }
+
 
 const mapStateToProps=(store)=>{
   console.log("APP store - ", store);
